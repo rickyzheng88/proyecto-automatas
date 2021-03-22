@@ -1,13 +1,18 @@
 package Vistas;
+import ClasesAutomatas.*;
 
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Graphics;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Ventana extends javax.swing.JFrame {
+    public MovimientoAutomata ma;
 
     public Ventana() {
         initComponents();
@@ -17,7 +22,8 @@ public class Ventana extends javax.swing.JFrame {
         Pedido.setVisible(true);
         Inventario.setVisible(false);
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("src/Imagenes/cursor.png").getImage(), new Point(0, 0), "custom cursor"));
-        galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata1.png")));
+        galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png"))); 
+        this.ma = new MovimientoAutomata(this.robot, this.flecha_a);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,6 +58,10 @@ public class Ventana extends javax.swing.JFrame {
         abastecer = new javax.swing.JButton();
         cerrar = new javax.swing.JButton();
         fondo_botones = new javax.swing.JLabel();
+        Automata = new javax.swing.JPanel();
+        robot = new javax.swing.JLabel();
+        flecha_a = new javax.swing.JLabel();
+        galpon = new javax.swing.JLabel();
         Leyenda = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lavadora = new javax.swing.JLabel();
@@ -69,8 +79,6 @@ public class Ventana extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         fondo_leyenda = new javax.swing.JLabel();
-        Automata = new javax.swing.JPanel();
-        galpon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -113,6 +121,11 @@ public class Ventana extends javax.swing.JFrame {
             new ImageIcon("src/Imagenes/mano.png").getImage(),
             new Point(0, 0), "mano_cursor"));
     buscar_pedido.setFocusPainted(false);
+    buscar_pedido.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buscar_pedidoActionPerformed(evt);
+        }
+    });
     Pedido.add(buscar_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
 
     jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -126,96 +139,101 @@ jPanel1.setLayout(new java.awt.GridLayout(5, 1));
 
 jCheckBox1.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
 jCheckBox1.setText("Lavadora (C3)");
-jPanel1.add(jCheckBox1);
+jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jCheckBox1ActionPerformed(evt);
+    }
+    });
+    jPanel1.add(jCheckBox1);
 
-jCheckBox2.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-jCheckBox2.setText("Microondas (B7)");
-jPanel1.add(jCheckBox2);
+    jCheckBox2.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    jCheckBox2.setText("Microondas (B7)");
+    jPanel1.add(jCheckBox2);
 
-jCheckBox3.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-jCheckBox3.setText("Televisor (E5)");
-jPanel1.add(jCheckBox3);
+    jCheckBox3.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    jCheckBox3.setText("Televisor (E5)");
+    jPanel1.add(jCheckBox3);
 
-jCheckBox4.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-jCheckBox4.setText("Nevera (I4)");
-jPanel1.add(jCheckBox4);
+    jCheckBox4.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    jCheckBox4.setText("Nevera (I4)");
+    jPanel1.add(jCheckBox4);
 
-jCheckBox5.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-jCheckBox5.setText("Computador (H10)");
-jPanel1.add(jCheckBox5);
+    jCheckBox5.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    jCheckBox5.setText("Computador (H10)");
+    jPanel1.add(jCheckBox5);
 
-jScrollPane2.setViewportView(jPanel1);
+    jScrollPane2.setViewportView(jPanel1);
 
-Pedido.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 210, 120));
+    Pedido.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 210, 120));
 
-titulo1.setBackground(new java.awt.Color(255, 255, 255));
-titulo1.setFont(new java.awt.Font("Cooper Black", 1, 28)); // NOI18N
-titulo1.setForeground(new java.awt.Color(255, 255, 255));
-titulo1.setText("a Buscar");
-Pedido.add(titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
+    titulo1.setBackground(new java.awt.Color(255, 255, 255));
+    titulo1.setFont(new java.awt.Font("Cooper Black", 1, 28)); // NOI18N
+    titulo1.setForeground(new java.awt.Color(255, 255, 255));
+    titulo1.setText("a Buscar");
+    Pedido.add(titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
 
-getContentPane().add(Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 600));
+    getContentPane().add(Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 600));
 
-Inventario.setBackground(new java.awt.Color(144, 118, 74));
-Inventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-Inventario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    Inventario.setBackground(new java.awt.Color(144, 118, 74));
+    Inventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+    Inventario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-titulo2.setBackground(new java.awt.Color(255, 255, 255));
-titulo2.setFont(new java.awt.Font("Cooper Black", 1, 28)); // NOI18N
-titulo2.setForeground(new java.awt.Color(255, 255, 255));
-titulo2.setText("Inventario");
-Inventario.add(titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, -1, 30));
+    titulo2.setBackground(new java.awt.Color(255, 255, 255));
+    titulo2.setFont(new java.awt.Font("Cooper Black", 1, 28)); // NOI18N
+    titulo2.setForeground(new java.awt.Color(255, 255, 255));
+    titulo2.setText("Inventario");
+    Inventario.add(titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, -1, 30));
 
-colocar_mercancia.setBackground(new java.awt.Color(0, 0, 0));
-colocar_mercancia.setFont(new java.awt.Font("Cooper Black", 0, 24)); // NOI18N
-colocar_mercancia.setForeground(new java.awt.Color(255, 255, 255));
-colocar_mercancia.setText("Colocar Mercancia");
-colocar_mercancia.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-    new ImageIcon("src/Imagenes/mano.png").getImage(),
-    new Point(0, 0), "mano_cursor"));
-    colocar_mercancia.setFocusPainted(false);
-    Inventario.add(colocar_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, -1, -1));
-
-    tipo_mercancia.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
-    tipo_mercancia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lavadora", "Nevera", "Microondas", "Televisor", "Computador" }));
-    tipo_mercancia.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+    colocar_mercancia.setBackground(new java.awt.Color(0, 0, 0));
+    colocar_mercancia.setFont(new java.awt.Font("Cooper Black", 0, 24)); // NOI18N
+    colocar_mercancia.setForeground(new java.awt.Color(255, 255, 255));
+    colocar_mercancia.setText("Colocar Mercancia");
+    colocar_mercancia.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
         new ImageIcon("src/Imagenes/mano.png").getImage(),
         new Point(0, 0), "mano_cursor"));
-Inventario.add(tipo_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 180, -1));
+colocar_mercancia.setFocusPainted(false);
+Inventario.add(colocar_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, -1, -1));
 
-tipo_mercan.setBackground(new java.awt.Color(255, 255, 255));
-tipo_mercan.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
-tipo_mercan.setText("Tipo de Mercancia");
-Inventario.add(tipo_mercan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 30));
-
-titulo_columnas.setBackground(new java.awt.Color(255, 255, 255));
-titulo_columnas.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
-titulo_columnas.setText("Cantidad de Mercancia");
-Inventario.add(titulo_columnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, 30));
-
-jSpinner1.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
-jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-Inventario.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 180, -1));
-
-getContentPane().add(Inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 600));
-
-Botones.setBackground(new java.awt.Color(255, 255, 255));
-Botones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-Botones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-pedido.setBackground(new java.awt.Color(0, 0, 0));
-pedido.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
-pedido.setForeground(new java.awt.Color(255, 255, 255));
-pedido.setText("Pedido");
-pedido.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+tipo_mercancia.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+tipo_mercancia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lavadora", "Nevera", "Microondas", "Televisor", "Computador" }));
+tipo_mercancia.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
     new ImageIcon("src/Imagenes/mano.png").getImage(),
     new Point(0, 0), "mano_cursor"));
-    pedido.setFocusPainted(false);
-    pedido.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            pedidoActionPerformed(evt);
-        }
+    Inventario.add(tipo_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 180, -1));
+
+    tipo_mercan.setBackground(new java.awt.Color(255, 255, 255));
+    tipo_mercan.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
+    tipo_mercan.setText("Tipo de Mercancia");
+    Inventario.add(tipo_mercan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 30));
+
+    titulo_columnas.setBackground(new java.awt.Color(255, 255, 255));
+    titulo_columnas.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
+    titulo_columnas.setText("Cantidad de Mercancia");
+    Inventario.add(titulo_columnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, 30));
+
+    jSpinner1.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+    jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+    jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    Inventario.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 180, -1));
+
+    getContentPane().add(Inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 600));
+
+    Botones.setBackground(new java.awt.Color(255, 255, 255));
+    Botones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+    Botones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+    pedido.setBackground(new java.awt.Color(0, 0, 0));
+    pedido.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+    pedido.setForeground(new java.awt.Color(255, 255, 255));
+    pedido.setText("Pedido");
+    pedido.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+        new ImageIcon("src/Imagenes/mano.png").getImage(),
+        new Point(0, 0), "mano_cursor"));
+pedido.setFocusPainted(false);
+pedido.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        pedidoActionPerformed(evt);
+    }
     });
     Botones.add(pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
@@ -256,12 +274,28 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
 
     getContentPane().add(Botones, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 490, 50));
 
+    Automata.setBackground(new java.awt.Color(0, 0, 0));
+    Automata.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    Automata.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+    robot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/robot.png"))); // NOI18N
+    Automata.add(robot, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 30, -1));
+
+    flecha_a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/punto.png"))); // NOI18N
+    Automata.add(flecha_a, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 10, 10));
+
+    galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pruebas/Automata1.png"))); // NOI18N
+    Automata.add(galpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 490, 450));
+
     Leyenda.setBackground(new java.awt.Color(255, 255, 255));
     Leyenda.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
     Leyenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    Automata.add(Leyenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 390, 490, 110));
+
+    getContentPane().add(Automata, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 490, 470));
 
     jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lavadora.png"))); // NOI18N
-    Leyenda.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 500, -1, -1));
 
     lavadora.setBackground(new java.awt.Color(204, 255, 255));
     lavadora.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
@@ -269,19 +303,19 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     lavadora.setText("Lavadora");
     lavadora.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     lavadora.setOpaque(true);
-    Leyenda.add(lavadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 80, -1));
+    getContentPane().add(lavadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 540, 80, -1));
 
     jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nevera.png"))); // NOI18N
-    Leyenda.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+    getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, -1, -1));
 
     jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/micro.png"))); // NOI18N
-    Leyenda.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+    getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 500, -1, -1));
 
     jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/televisor.png"))); // NOI18N
-    Leyenda.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+    getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 510, -1, -1));
 
     jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pc.png"))); // NOI18N
-    Leyenda.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, -1));
+    getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 500, -1, -1));
 
     nevera.setBackground(new java.awt.Color(204, 255, 204));
     nevera.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
@@ -289,7 +323,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     nevera.setText("Nevera");
     nevera.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     nevera.setOpaque(true);
-    Leyenda.add(nevera, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 60, -1));
+    getContentPane().add(nevera, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 540, 60, -1));
 
     micro.setBackground(new java.awt.Color(255, 255, 204));
     micro.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
@@ -297,7 +331,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     micro.setText("Microondas");
     micro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     micro.setOpaque(true);
-    Leyenda.add(micro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 90, -1));
+    getContentPane().add(micro, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 540, 90, -1));
 
     tv.setBackground(new java.awt.Color(255, 102, 102));
     tv.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
@@ -305,7 +339,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     tv.setText("Televisor");
     tv.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     tv.setOpaque(true);
-    Leyenda.add(tv, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 80, -1));
+    getContentPane().add(tv, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 80, -1));
 
     pc.setBackground(new java.awt.Color(204, 204, 204));
     pc.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
@@ -313,7 +347,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     pc.setText("Computador");
     pc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     pc.setOpaque(true);
-    Leyenda.add(pc, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 100, -1));
+    getContentPane().add(pc, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 540, 100, -1));
 
     jLabel1.setBackground(new java.awt.Color(255, 153, 102));
     jLabel1.setFont(new java.awt.Font("Cooper Black", 0, 13)); // NOI18N
@@ -321,7 +355,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     jLabel1.setText("70 Kg");
     jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jLabel1.setOpaque(true);
-    Leyenda.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+    getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 570, -1, -1));
 
     jLabel10.setBackground(new java.awt.Color(255, 153, 102));
     jLabel10.setFont(new java.awt.Font("Cooper Black", 0, 13)); // NOI18N
@@ -329,7 +363,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     jLabel10.setText("20 Kg");
     jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jLabel10.setOpaque(true);
-    Leyenda.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 50, -1));
+    getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 570, 50, -1));
 
     jLabel9.setBackground(new java.awt.Color(255, 153, 102));
     jLabel9.setFont(new java.awt.Font("Cooper Black", 0, 13)); // NOI18N
@@ -337,7 +371,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     jLabel9.setText("30 Kg");
     jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jLabel9.setOpaque(true);
-    Leyenda.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 50, -1));
+    getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 570, 50, -1));
 
     jLabel8.setBackground(new java.awt.Color(255, 153, 102));
     jLabel8.setFont(new java.awt.Font("Cooper Black", 0, 13)); // NOI18N
@@ -345,7 +379,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     jLabel8.setText("10 Kg");
     jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jLabel8.setOpaque(true);
-    Leyenda.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 50, -1));
+    getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 570, 50, -1));
 
     jLabel2.setBackground(new java.awt.Color(255, 153, 102));
     jLabel2.setFont(new java.awt.Font("Cooper Black", 0, 13)); // NOI18N
@@ -353,22 +387,11 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     jLabel2.setText("80 Kg");
     jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jLabel2.setOpaque(true);
-    Leyenda.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 40, -1));
+    getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 570, 40, -1));
 
     fondo_leyenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo_flechas.jpg"))); // NOI18N
     fondo_leyenda.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(0, 0, 0)));
-    Leyenda.add(fondo_leyenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -23, 500, 150));
-
-    getContentPane().add(Leyenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 490, 120));
-
-    Automata.setBackground(new java.awt.Color(0, 0, 0));
-    Automata.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    Automata.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata1.png"))); // NOI18N
-    Automata.add(galpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-    getContentPane().add(Automata, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 490, 430));
+    getContentPane().add(fondo_leyenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 500, 110));
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -385,8 +408,8 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
         abastecer.setEnabled(true);
         Pedido.setVisible(true);
         Inventario.setVisible(false);
-        galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata1.png")));
-
+        galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png")));
+        
     }//GEN-LAST:event_pedidoActionPerformed
 
     private void abastecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abastecerActionPerformed
@@ -397,6 +420,46 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
         Inventario.setVisible(true);
         galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png")));
     }//GEN-LAST:event_abastecerActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void buscar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_pedidoActionPerformed
+        //robot.setLocation(robot.getX() + 45, robot.getY() + 39); // X + 45; Y + 39 movimiento automata
+         // flecha derecha senalar abajo -30 +20
+        
+        
+        Timer timer = new Timer("Timer");
+
+        int delay = 1000;
+        timer.schedule(this.ma.irDerecha(3), delay);
+        try {
+            Thread.sleep(300);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+        timer.schedule(this.ma.derechaAbajo(), delay);
+        try {
+            Thread.sleep(300);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+        timer.schedule(this.ma.irAbajo(5), delay);
+        try {
+            Thread.sleep(300);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+        timer.schedule(this.ma.abajoIzquierda(), delay);
+        //codigo para delay
+        /*Timer timer = new Timer(200, e -> {
+            flecha_a.setLocation(flecha_a.getX()+20 , flecha_a.getY() + 20);
+        });
+        timer.setRepeats(false);
+        timer.start();*/
+        
+    }//GEN-LAST:event_buscar_pedidoActionPerformed
 
     public void correr() {
 
@@ -444,6 +507,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton buscar_pedido;
     private javax.swing.JButton cerrar;
     private javax.swing.JButton colocar_mercancia;
+    private javax.swing.JLabel flecha_a;
     private javax.swing.JLabel fondo_botones;
     private javax.swing.JLabel fondo_flechas;
     private javax.swing.JLabel fondo_leyenda;
@@ -473,6 +537,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JLabel nevera;
     private javax.swing.JLabel pc;
     private javax.swing.JButton pedido;
+    private javax.swing.JLabel robot;
     private javax.swing.JLabel tipo_mercan;
     private javax.swing.JComboBox<String> tipo_mercancia;
     private javax.swing.JLabel titulo;
