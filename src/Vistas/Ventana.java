@@ -10,9 +10,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Ventana extends javax.swing.JFrame {
     public MovimientoAutomata ma;
+    public Inventario in;
+    
 
     public Ventana() {
         initComponents();
@@ -24,6 +28,11 @@ public class Ventana extends javax.swing.JFrame {
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("src/Imagenes/cursor.png").getImage(), new Point(0, 0), "custom cursor"));
         galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png"))); 
         this.ma = new MovimientoAutomata(this.robot, this.flecha_a);
+        this.in = new Inventario(this.lavadora_check, this.nevera_check, this.microondas_check, this.televisor_check, this.computador_check);
+        this.in.refrescarInventario();
+        
+        // Cargar existencia a los checkboxs
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -40,11 +49,11 @@ public class Ventana extends javax.swing.JFrame {
         buscar_pedido = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        lavadora_check = new javax.swing.JCheckBox();
+        nevera_check = new javax.swing.JCheckBox();
+        microondas_check = new javax.swing.JCheckBox();
+        televisor_check = new javax.swing.JCheckBox();
+        computador_check = new javax.swing.JCheckBox();
         titulo1 = new javax.swing.JLabel();
         Inventario = new javax.swing.JPanel();
         titulo2 = new javax.swing.JLabel();
@@ -61,6 +70,11 @@ public class Ventana extends javax.swing.JFrame {
         Automata = new javax.swing.JPanel();
         robot = new javax.swing.JLabel();
         flecha_a = new javax.swing.JLabel();
+        caja_lavadora = new javax.swing.JLabel();
+        caja_nevera = new javax.swing.JLabel();
+        caja_microondas = new javax.swing.JLabel();
+        caja_televisor = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         galpon = new javax.swing.JLabel();
         Leyenda = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -137,30 +151,40 @@ public class Ventana extends javax.swing.JFrame {
 jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 jPanel1.setLayout(new java.awt.GridLayout(5, 1));
 
-jCheckBox1.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-jCheckBox1.setText("Lavadora (C3)");
-jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+lavadora_check.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+lavadora_check.setText("Lavadora");
+lavadora_check.addActionListener(new java.awt.event.ActionListener() {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jCheckBox1ActionPerformed(evt);
+        lavadora_checkActionPerformed(evt);
     }
     });
-    jPanel1.add(jCheckBox1);
+    jPanel1.add(lavadora_check);
 
-    jCheckBox2.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-    jCheckBox2.setText("Microondas (B7)");
-    jPanel1.add(jCheckBox2);
+    nevera_check.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    nevera_check.setText("Nevera");
+    nevera_check.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            nevera_checkActionPerformed(evt);
+        }
+    });
+    jPanel1.add(nevera_check);
 
-    jCheckBox3.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-    jCheckBox3.setText("Televisor (E5)");
-    jPanel1.add(jCheckBox3);
+    microondas_check.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    microondas_check.setText("Microondas");
+    jPanel1.add(microondas_check);
 
-    jCheckBox4.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-    jCheckBox4.setText("Nevera (I4)");
-    jPanel1.add(jCheckBox4);
+    televisor_check.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    televisor_check.setText("Televisor");
+    jPanel1.add(televisor_check);
 
-    jCheckBox5.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
-    jCheckBox5.setText("Computador (H10)");
-    jPanel1.add(jCheckBox5);
+    computador_check.setFont(new java.awt.Font("Cooper Black", 0, 12)); // NOI18N
+    computador_check.setText("Computador");
+    computador_check.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            computador_checkActionPerformed(evt);
+        }
+    });
+    jPanel1.add(computador_check);
 
     jScrollPane2.setViewportView(jPanel1);
 
@@ -192,48 +216,53 @@ jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
         new ImageIcon("src/Imagenes/mano.png").getImage(),
         new Point(0, 0), "mano_cursor"));
 colocar_mercancia.setFocusPainted(false);
-Inventario.add(colocar_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, -1, -1));
+colocar_mercancia.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        colocar_mercanciaActionPerformed(evt);
+    }
+    });
+    Inventario.add(colocar_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, -1, -1));
 
-tipo_mercancia.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
-tipo_mercancia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lavadora", "Nevera", "Microondas", "Televisor", "Computador" }));
-tipo_mercancia.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-    new ImageIcon("src/Imagenes/mano.png").getImage(),
-    new Point(0, 0), "mano_cursor"));
-    Inventario.add(tipo_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 180, -1));
-
-    tipo_mercan.setBackground(new java.awt.Color(255, 255, 255));
-    tipo_mercan.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
-    tipo_mercan.setText("Tipo de Mercancia");
-    Inventario.add(tipo_mercan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 30));
-
-    titulo_columnas.setBackground(new java.awt.Color(255, 255, 255));
-    titulo_columnas.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
-    titulo_columnas.setText("Cantidad de Mercancia");
-    Inventario.add(titulo_columnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, 30));
-
-    jSpinner1.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
-    jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-    jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    Inventario.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 180, -1));
-
-    getContentPane().add(Inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 600));
-
-    Botones.setBackground(new java.awt.Color(255, 255, 255));
-    Botones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    Botones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-    pedido.setBackground(new java.awt.Color(0, 0, 0));
-    pedido.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
-    pedido.setForeground(new java.awt.Color(255, 255, 255));
-    pedido.setText("Pedido");
-    pedido.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+    tipo_mercancia.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+    tipo_mercancia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lavadora", "Nevera", "Microondas", "Televisor", "Computador" }));
+    tipo_mercancia.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
         new ImageIcon("src/Imagenes/mano.png").getImage(),
         new Point(0, 0), "mano_cursor"));
-pedido.setFocusPainted(false);
-pedido.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        pedidoActionPerformed(evt);
-    }
+Inventario.add(tipo_mercancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 180, -1));
+
+tipo_mercan.setBackground(new java.awt.Color(255, 255, 255));
+tipo_mercan.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
+tipo_mercan.setText("Tipo de Mercancia");
+Inventario.add(tipo_mercan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 30));
+
+titulo_columnas.setBackground(new java.awt.Color(255, 255, 255));
+titulo_columnas.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
+titulo_columnas.setText("Cantidad de Mercancia");
+Inventario.add(titulo_columnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, 30));
+
+jSpinner1.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+Inventario.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 180, -1));
+
+getContentPane().add(Inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 600));
+
+Botones.setBackground(new java.awt.Color(255, 255, 255));
+Botones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+Botones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+pedido.setBackground(new java.awt.Color(0, 0, 0));
+pedido.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
+pedido.setForeground(new java.awt.Color(255, 255, 255));
+pedido.setText("Pedido");
+pedido.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+    new ImageIcon("src/Imagenes/mano.png").getImage(),
+    new Point(0, 0), "mano_cursor"));
+    pedido.setFocusPainted(false);
+    pedido.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            pedidoActionPerformed(evt);
+        }
     });
     Botones.add(pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
@@ -283,6 +312,21 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
 
     flecha_a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/punto.png"))); // NOI18N
     Automata.add(flecha_a, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 10, 10));
+
+    caja_lavadora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja_lavadora.png"))); // NOI18N
+    Automata.add(caja_lavadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 30));
+
+    caja_nevera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja_nevera.png"))); // NOI18N
+    Automata.add(caja_nevera, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, 30));
+
+    caja_microondas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja_microondas.png"))); // NOI18N
+    Automata.add(caja_microondas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, 30));
+
+    caja_televisor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja_televisor.png"))); // NOI18N
+    Automata.add(caja_televisor, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, 30));
+
+    jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja_computador.png"))); // NOI18N
+    Automata.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 30));
 
     galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pruebas/Automata1.png"))); // NOI18N
     Automata.add(galpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 490, 450));
@@ -421,45 +465,86 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
         galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png")));
     }//GEN-LAST:event_abastecerActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    private void lavadora_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lavadora_checkActionPerformed
+  
+    }//GEN-LAST:event_lavadora_checkActionPerformed
 
     private void buscar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_pedidoActionPerformed
-        //robot.setLocation(robot.getX() + 45, robot.getY() + 39); // X + 45; Y + 39 movimiento automata
-         // flecha derecha senalar abajo -30 +20
+        ArrayList<Integer> listaPedido;
+        listaPedido = new ArrayList<Integer>();
+        /*
+        if (lavadora_check.isSelected()) {
+            listaPedido.add(0);
+        }
+        if (nevera_check.isSelected()) {
+            listaPedido.add(1);
+        }
+        if (microondas_check.isSelected()) {
+            listaPedido.add(2);
+        }
+        if (televisor_check.isSelected()) {
+            listaPedido.add(3);
+        }
+        if (computador_check.isSelected()) {
+            listaPedido.add(4);
+        }
         
+        this.in.realizarPedido(listaPedido);
+        */
         
         Timer timer = new Timer("Timer");
 
-        int delay = 1000;
-        timer.schedule(this.ma.irDerecha(3), delay);
+        int delay = 1800;
+        
+        timer.schedule(this.ma.irDerecha(3, 300), delay);
         try {
             Thread.sleep(300);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
-        timer.schedule(this.ma.derechaAbajo(), delay);
+        timer.schedule(this.ma.derechaArriba(300), delay);
         try {
             Thread.sleep(300);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
-        timer.schedule(this.ma.irAbajo(5), delay);
+        timer.schedule(this.ma.arribaIzquierda(300), delay);
         try {
             Thread.sleep(300);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
-        timer.schedule(this.ma.abajoIzquierda(), delay);
-        //codigo para delay
-        /*Timer timer = new Timer(200, e -> {
-            flecha_a.setLocation(flecha_a.getX()+20 , flecha_a.getY() + 20);
-        });
-        timer.setRepeats(false);
-        timer.start();*/
+        timer.schedule(this.ma.izquierdaAbajo(300), delay);
+        try {
+            Thread.sleep(300);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+        timer.schedule(this.ma.abajoDerecha(300), delay);
+        try {
+            Thread.sleep(300);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+        
+        
         
     }//GEN-LAST:event_buscar_pedidoActionPerformed
+
+    private void nevera_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nevera_checkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nevera_checkActionPerformed
+
+    private void colocar_mercanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colocar_mercanciaActionPerformed
+        int cantidad = (Integer)this.jSpinner1.getValue();
+        String nombreProducto = (String)this.tipo_mercancia.getSelectedItem();
+        
+        this.in.agregarProducto(cantidad, nombreProducto);
+    }//GEN-LAST:event_colocar_mercanciaActionPerformed
+
+    private void computador_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computador_checkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_computador_checkActionPerformed
 
     public void correr() {
 
@@ -505,8 +590,13 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JLabel avanzar;
     private javax.swing.JPanel base_fondo_flechas;
     private javax.swing.JButton buscar_pedido;
+    private javax.swing.JLabel caja_lavadora;
+    private javax.swing.JLabel caja_microondas;
+    private javax.swing.JLabel caja_nevera;
+    private javax.swing.JLabel caja_televisor;
     private javax.swing.JButton cerrar;
     private javax.swing.JButton colocar_mercancia;
+    private javax.swing.JCheckBox computador_check;
     private javax.swing.JLabel flecha_a;
     private javax.swing.JLabel fondo_botones;
     private javax.swing.JLabel fondo_flechas;
@@ -514,13 +604,9 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JLabel galpon;
     private javax.swing.JLabel giro1;
     private javax.swing.JLabel giro2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -533,11 +619,15 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lavadora;
+    private javax.swing.JCheckBox lavadora_check;
     private javax.swing.JLabel micro;
+    private javax.swing.JCheckBox microondas_check;
     private javax.swing.JLabel nevera;
+    private javax.swing.JCheckBox nevera_check;
     private javax.swing.JLabel pc;
     private javax.swing.JButton pedido;
     private javax.swing.JLabel robot;
+    private javax.swing.JCheckBox televisor_check;
     private javax.swing.JLabel tipo_mercan;
     private javax.swing.JComboBox<String> tipo_mercancia;
     private javax.swing.JLabel titulo;

@@ -14,13 +14,13 @@ public class MovimientoAutomata {
         this.flecha = f;
         this.automata = a;
     }
-    
-    public TimerTask derechaAbajo() {
+    /* Orientacion */
+    public TimerTask derechaAbajo(int delay) {
         TimerTask derechaAbajo = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()-30, flecha.getY()+20);
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(delay);
                 } catch(InterruptedException e) {
                     System.out.println(e);
                 }
@@ -30,84 +30,183 @@ public class MovimientoAutomata {
         return derechaAbajo;
     }
     
-        public TimerTask abajoIzquierda() {
-            TimerTask abajoIzquierda = new TimerTask() {
-                public void run() {
-                    flecha.setLocation(flecha.getX()-20, flecha.getY()-20);
-                    try {
-                        Thread.sleep(300);
-                    } catch(InterruptedException e) {
-                        System.out.println(e);
-                    }
+    public TimerTask abajoIzquierda(int delay) {
+        TimerTask abajoIzquierda = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()-20, flecha.getY()-20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
                 }
-            };
-            
-            return abajoIzquierda;
-        }
-        public TimerTask izquierdaArriba() {
-            TimerTask izquierdaArriba = new TimerTask() {
-                public void run() {
-                    flecha.setLocation(flecha.getX()+20, flecha.getY()-20);
-                    try {
-                        Thread.sleep(300);
-                    } catch(InterruptedException e) {
-                        System.out.println(e);
-                    }
-                }
-            };
-        return izquierdaArriba;
-        }
-        public TimerTask arribaDerecha() {
-            TimerTask arribaDerecha = new TimerTask() {
-                public void run() {
-                    flecha.setLocation(flecha.getX()+30, flecha.getY()+20);
-                    try {
-                        Thread.sleep(300);
-                    } catch(InterruptedException e) {
-                        System.out.println(e);
-                    }
-                }
-            };
-            
-            return arribaDerecha;
-        }
-        
-        
-        public TimerTask irDerecha(int pasos) {
-            TimerTask irDerecha = new TimerTask() {
-                public void run() {
-                    for(int i=0; i<pasos; i++){
-                        automata.setLocation(automata.getX()+45, automata.getY());
-                        flecha.setLocation(flecha.getX()+45, flecha.getY());
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            System.out.println(e);
-                        }   
-                    }
+            }
+        };
 
+        return abajoIzquierda;
+    }
+        
+    public TimerTask izquierdaArriba(int delay) {
+        TimerTask izquierdaArriba = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()+20, flecha.getY()-20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
                 }
-            };
-            return irDerecha;
-        }
+            }
+        };
+    return izquierdaArriba;
+    }
         
-        
-        public TimerTask irAbajo(int pasos) {
-            TimerTask irAbajo = new TimerTask() {
-                public void run() {
-                    for(int i=0; i<pasos; i++){
-                        automata.setLocation(automata.getX(), automata.getY()+39);
-                        flecha.setLocation(flecha.getX(), flecha.getY()+39);
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            System.out.println(e);
-                        }   
-                    }
+    public TimerTask arribaDerecha(int delay) {
+        TimerTask arribaDerecha = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()+30, flecha.getY()+20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+        };
 
+        return arribaDerecha;
+    }
+    
+    public TimerTask derechaArriba(int delay) {
+        TimerTask derechaArriba = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()-30, flecha.getY()-20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
                 }
-            };
-            
-            return irAbajo;
-        }
+            }
+        };
+
+        return derechaArriba;
+    }
+    
+    public TimerTask arribaIzquierda(int delay) {
+        TimerTask arribaIzquierda = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()-20, flecha.getY()+20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+        };
+
+        return arribaIzquierda;
+    }
+    
+    public TimerTask izquierdaAbajo(int delay) {
+        TimerTask izquierdaAbajo = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()+20, flecha.getY()+20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+        };
+
+        return izquierdaAbajo;
+    }
+    
+    public TimerTask abajoDerecha(int delay) {
+        TimerTask abajoDerecha = new TimerTask() {
+            public void run() {
+                flecha.setLocation(flecha.getX()+30, flecha.getY()-20);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+        };
+
+        return abajoDerecha;
+    }
+    /* Orientacion Fin */
+    
+        
+    public TimerTask irIzquierda(int pasos, int delay) {
+        TimerTask irIzquierda = new TimerTask() {
+            public void run() {
+                for(int i=0; i<pasos; i++){
+                    automata.setLocation(automata.getX()-45, automata.getY());
+                    flecha.setLocation(flecha.getX()-45, flecha.getY());
+                    try {
+                        Thread.sleep(delay);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }   
+                }
+
+            }
+        };
+        return irIzquierda;
+    }
+        
+    public TimerTask irDerecha(int pasos, int delay) {
+        TimerTask irDerecha = new TimerTask() {
+            public void run() {
+                for(int i=0; i<pasos; i++){
+                    automata.setLocation(automata.getX()+45, automata.getY());
+                    flecha.setLocation(flecha.getX()+45, flecha.getY());
+                    try {
+                        Thread.sleep(delay);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }   
+                }
+
+            }
+        };
+        return irDerecha;
+    }
+
+    public TimerTask irArriba(int pasos, int delay) {
+        TimerTask irArriba = new TimerTask() {
+            public void run() {
+                for(int i=0; i<pasos; i++){
+                    automata.setLocation(automata.getX(), automata.getY()-39);
+                    flecha.setLocation(flecha.getX(), flecha.getY()-39);
+                    try {
+                        Thread.sleep(delay);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }   
+                }
+
+            }
+        };
+
+        return irArriba;
+    }
+
+    public TimerTask irAbajo(int pasos, int delay) {
+        TimerTask irAbajo = new TimerTask() {
+            public void run() {
+                for(int i=0; i<pasos; i++){
+                    automata.setLocation(automata.getX(), automata.getY()+39);
+                    flecha.setLocation(flecha.getX(), flecha.getY()+39);
+                    try {
+                        Thread.sleep(delay);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }   
+                }
+
+            }
+        };
+
+        return irAbajo;
+    }
 }
