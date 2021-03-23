@@ -27,7 +27,7 @@ public class Ventana extends javax.swing.JFrame {
         Inventario.setVisible(false);
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("src/Imagenes/cursor.png").getImage(), new Point(0, 0), "custom cursor"));
         galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png"))); 
-        this.ma = new MovimientoAutomata(this.robot, this.flecha_a);
+        this.ma = new MovimientoAutomata(this.robot, this.flecha_a, this.giro1_color, this.giro2_color, this.avanzar_color);
         this.in = new Inventario(this.lavadora_check, this.nevera_check, this.microondas_check, this.televisor_check, this.computador_check);
         this.in.refrescarInventario();
         
@@ -42,6 +42,9 @@ public class Ventana extends javax.swing.JFrame {
         Pedido = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         base_fondo_flechas = new javax.swing.JPanel();
+        giro1_color = new javax.swing.JLabel();
+        avanzar_color = new javax.swing.JLabel();
+        giro2_color = new javax.swing.JLabel();
         giro1 = new javax.swing.JLabel();
         avanzar = new javax.swing.JLabel();
         giro2 = new javax.swing.JLabel();
@@ -111,6 +114,18 @@ public class Ventana extends javax.swing.JFrame {
         Pedido.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, 30));
 
         base_fondo_flechas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        giro1_color.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flechas/giro1_color.png"))); // NOI18N
+        giro1_color.setEnabled(false);
+        base_fondo_flechas.add(giro1_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 80));
+
+        avanzar_color.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flechas/avanzar_color.png"))); // NOI18N
+        avanzar_color.setEnabled(false);
+        base_fondo_flechas.add(avanzar_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 60, 80));
+
+        giro2_color.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flechas/giro2_color.png"))); // NOI18N
+        giro2_color.setEnabled(false);
+        base_fondo_flechas.add(giro2_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, -1));
 
         giro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flechas/giro1_gris.png"))); // NOI18N
         base_fondo_flechas.add(giro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
@@ -588,6 +603,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel Pedido;
     private javax.swing.JButton abastecer;
     private javax.swing.JLabel avanzar;
+    private javax.swing.JLabel avanzar_color;
     private javax.swing.JPanel base_fondo_flechas;
     private javax.swing.JButton buscar_pedido;
     private javax.swing.JLabel caja_lavadora;
@@ -603,7 +619,9 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JLabel fondo_leyenda;
     private javax.swing.JLabel galpon;
     private javax.swing.JLabel giro1;
+    private javax.swing.JLabel giro1_color;
     private javax.swing.JLabel giro2;
+    private javax.swing.JLabel giro2_color;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
