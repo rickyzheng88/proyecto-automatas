@@ -25,6 +25,13 @@ public class MovimientoAutomata {
         TimerTask derechaAbajo = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()-30, flecha.getY()+20);
+                girar1.setEnabled(true);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+                girar1.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -40,6 +47,13 @@ public class MovimientoAutomata {
         TimerTask abajoIzquierda = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()-20, flecha.getY()-20);
+                girar1.setEnabled(true);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+                girar1.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -55,6 +69,13 @@ public class MovimientoAutomata {
         TimerTask izquierdaArriba = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()+20, flecha.getY()-20);
+                girar1.setEnabled(true);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+                girar1.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -69,6 +90,13 @@ public class MovimientoAutomata {
         TimerTask arribaDerecha = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()+30, flecha.getY()+20);
+                girar1.setEnabled(true);
+                try {
+                    Thread.sleep(delay);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+                girar1.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -84,13 +112,13 @@ public class MovimientoAutomata {
         TimerTask derechaArriba = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()-30, flecha.getY()-20);
-                girar1.setEnabled(true);
+                girar2.setEnabled(true);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(delay);
                 } catch(InterruptedException e) {
                     System.out.println(e);
                 }
-                girar1.setEnabled(false);
+                girar2.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -107,13 +135,13 @@ public class MovimientoAutomata {
         TimerTask arribaIzquierda = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()-20, flecha.getY()+20);
-                girar1.setEnabled(true);
+                girar2.setEnabled(true);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(delay);
                 } catch(InterruptedException e) {
                     System.out.println(e);
                 }
-                girar1.setEnabled(false);
+                girar2.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -129,13 +157,13 @@ public class MovimientoAutomata {
         TimerTask izquierdaAbajo = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()+20, flecha.getY()+20);
-                girar1.setEnabled(true);
+                girar2.setEnabled(true);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(delay);
                 } catch(InterruptedException e) {
                     System.out.println(e);
                 }
-                girar1.setEnabled(false);
+                girar2.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -151,13 +179,13 @@ public class MovimientoAutomata {
         TimerTask abajoDerecha = new TimerTask() {
             public void run() {
                 flecha.setLocation(flecha.getX()+30, flecha.getY()-20);
-                girar1.setEnabled(true);
+                girar2.setEnabled(true);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(delay);
                 } catch(InterruptedException e) {
                     System.out.println(e);
                 }
-                girar1.setEnabled(false);
+                girar2.setEnabled(false);
                 try {
                     Thread.sleep(delay);
                 } catch(InterruptedException e) {
@@ -177,6 +205,13 @@ public class MovimientoAutomata {
                 for(int i=0; i<pasos; i++){
                     automata.setLocation(automata.getX()-45, automata.getY());
                     flecha.setLocation(flecha.getX()-45, flecha.getY());
+                    avanzar.setEnabled(true);
+                    try {
+                        Thread.sleep(delay);
+                    } catch(InterruptedException e) {
+                        System.out.println(e);
+                    }
+                    avanzar.setEnabled(false);
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -195,6 +230,13 @@ public class MovimientoAutomata {
                 for(int i=0; i<pasos; i++){
                     automata.setLocation(automata.getX()+45, automata.getY());
                     flecha.setLocation(flecha.getX()+45, flecha.getY());
+                    avanzar.setEnabled(true);
+                    try {
+                        Thread.sleep(delay);
+                    } catch(InterruptedException e) {
+                        System.out.println(e);
+                    }
+                    avanzar.setEnabled(false);
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -213,6 +255,13 @@ public class MovimientoAutomata {
                 for(int i=0; i<pasos; i++){
                     automata.setLocation(automata.getX(), automata.getY()-39);
                     flecha.setLocation(flecha.getX(), flecha.getY()-39);
+                    avanzar.setEnabled(true);
+                    try {
+                        Thread.sleep(delay);
+                    } catch(InterruptedException e) {
+                        System.out.println(e);
+                    }
+                    avanzar.setEnabled(false);
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -232,6 +281,13 @@ public class MovimientoAutomata {
                 for(int i=0; i<pasos; i++){
                     automata.setLocation(automata.getX(), automata.getY()+39);
                     flecha.setLocation(flecha.getX(), flecha.getY()+39);
+                    avanzar.setEnabled(true);
+                    try {
+                        Thread.sleep(delay);
+                    } catch(InterruptedException e) {
+                        System.out.println(e);
+                    }
+                    avanzar.setEnabled(false);
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {

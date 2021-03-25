@@ -28,7 +28,7 @@ public class Ventana extends javax.swing.JFrame {
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("src/Imagenes/cursor.png").getImage(), new Point(0, 0), "custom cursor"));
         galpon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Automata2.png"))); 
         this.ma = new MovimientoAutomata(this.robot, this.flecha_a, this.giro1_color, this.giro2_color, this.avanzar_color);
-        this.in = new Inventario(this.lavadora_check, this.nevera_check, this.microondas_check, this.televisor_check, this.computador_check);
+        this.in = new Inventario(this.lavadora_check, this.nevera_check, this.microondas_check, this.televisor_check, this.computador_check, this.ma);
         this.in.refrescarInventario();
         
         // Cargar existencia a los checkboxs
@@ -487,7 +487,7 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
     private void buscar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_pedidoActionPerformed
         ArrayList<Integer> listaPedido;
         listaPedido = new ArrayList<Integer>();
-        /*
+        
         if (lavadora_check.isSelected()) {
             listaPedido.add(0);
         }
@@ -503,44 +503,25 @@ cerrar.addActionListener(new java.awt.event.ActionListener() {
         if (computador_check.isSelected()) {
             listaPedido.add(4);
         }
+        if (listaPedido.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione al menos 1 producto");
+        }
         
         this.in.realizarPedido(listaPedido);
-        */
         
+        /*
         Timer timer = new Timer("Timer");
 
-        int delay = 1800;
+        int delay = 2200;
         
-        timer.schedule(this.ma.irDerecha(3, 300), delay);
+        timer.schedule(this.ma.irDerecha(2,300), delay);
         try {
             Thread.sleep(300);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
-        timer.schedule(this.ma.derechaArriba(300), delay);
-        try {
-            Thread.sleep(300);
-        } catch(InterruptedException e) {
-            System.out.println(e);
-        }
-        timer.schedule(this.ma.arribaIzquierda(300), delay);
-        try {
-            Thread.sleep(300);
-        } catch(InterruptedException e) {
-            System.out.println(e);
-        }
-        timer.schedule(this.ma.izquierdaAbajo(300), delay);
-        try {
-            Thread.sleep(300);
-        } catch(InterruptedException e) {
-            System.out.println(e);
-        }
-        timer.schedule(this.ma.abajoDerecha(300), delay);
-        try {
-            Thread.sleep(300);
-        } catch(InterruptedException e) {
-            System.out.println(e);
-        }
+        */
+        
         
         
         

@@ -19,13 +19,16 @@ public class Inventario {
     public JCheckBox microondas;
     public JCheckBox televisor;
     public JCheckBox computador;
+    public Automatas at;
+    
     
     
     public Inventario (JCheckBox lavadora, 
             JCheckBox nevera, 
             JCheckBox microondas, 
             JCheckBox televisor,
-            JCheckBox computador) {
+            JCheckBox computador,
+            MovimientoAutomata ma) {
         this.productos = new ArrayList<Integer>();
             productos.add(3); // Lavadora
             productos.add(6); // Nevera
@@ -38,6 +41,8 @@ public class Inventario {
         this.microondas = microondas;
         this.televisor = televisor;
         this.computador = computador;
+
+        this.at = new Automatas(ma);
     }
     
     public void refrescarInventario() {
@@ -62,15 +67,19 @@ public class Inventario {
     
     public void realizarPedido(ArrayList<Integer> listaPedido) {
         if (!this.checkPedido(listaPedido)) {
-            JOptionPane.showMessageDialog(null, "No hay suficiente existencia en algunos productos");
+            JOptionPane.showMessageDialog(null, "No hay suficiente existencia en algunos productos seleccionados");
         } else {
-            for (int i = 0; i<listaPedido.size(); i++) {
+            this.descontarProducto(listaPedido);
+            this.refrescarInventario();
+            this.at.tomarPedido(listaPedido);
+        }
+    }
+    
+    public void descontarProducto(ArrayList<Integer> listaPedido) {
+        for (int i = 0; i<listaPedido.size(); i++) {
                 int producto = listaPedido.get(i);
                 this.productos.set(producto, this.productos.get(producto)-1);
-            }
         }
-        
-        this.refrescarInventario();
     }
     
     public void agregarProducto(int cantidad, String nombre) {
