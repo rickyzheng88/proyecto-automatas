@@ -13,10 +13,11 @@ import java.util.TimerTask;
  * @author ricky
  */
 public class Automatas {
-    int peso = 250;
+    int peso = 100;
     int pesoCargado = 0;
     public String posicionActual;
     public MovimientoAutomata ma;
+    int pesoProductos[] = {70, 80, 10, 30, 20};
     
     public Automatas(MovimientoAutomata ma) {
         this.posicionActual = "Inicio";
@@ -25,6 +26,15 @@ public class Automatas {
     
     public void tomarPedido(ArrayList<Integer> pedido) {
         for (int i = 0; i < pedido.size(); i++) {
+            if (this.getPeso(pedido.get(i)) + this.pesoCargado > this.peso) {
+                viajar(camino(this.posicionActual, "Inicio"));
+                try {
+                    Thread.sleep(2900);
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+            } 
+            
             viajar(camino(this.posicionActual, this.codProducto(pedido.get(i))));
             try {
                 Thread.sleep(2900);
@@ -117,6 +127,7 @@ public class Automatas {
                         camino.add(10); //irAbajo
                         camino.add(1); //abajoIzquierda
                         this.posicionActual = "Lavadora";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[0];
                         break;
                         
                     case "Nevera":
@@ -130,6 +141,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Nevera";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[1];
                         break;
                         
                     case "Microondas":
@@ -145,6 +157,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Microondas";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[2];
                         break;
                         
                     case "Televisor":
@@ -158,6 +171,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Televisor";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[3];
                         break;
                         
                     case "Computador":
@@ -176,6 +190,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Computador";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[4];
                         break;
                         
                     default:
@@ -196,6 +211,7 @@ public class Automatas {
                         camino.add(2);
                         camino.add(3);
                         this.posicionActual = "Inicio";
+                        this.resetPeso();
                         break;
                         
                     case "Nevera":
@@ -204,6 +220,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Nevera";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[1];
                         break;
                         
                     case "Microondas":
@@ -226,6 +243,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Microondas";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[2];
                         break;
                         
                     case "Televisor":
@@ -240,6 +258,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Televisor";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[3];
                         break;
                         
                     case "Computador":
@@ -259,6 +278,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Computador";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[4];
                         break;
                 }
                 break;
@@ -278,6 +298,7 @@ public class Automatas {
                         camino.add(2);
                         camino.add(3);
                         this.posicionActual = "Inicio";
+                        this.resetPeso();
                         break;
                         
                     case "Lavadora":
@@ -286,6 +307,7 @@ public class Automatas {
                         camino.add(8);
                         camino.add(5);
                         this.posicionActual = "Lavadora";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[0];
                         break;
                         
                     case "Microondas":
@@ -310,6 +332,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Microondas";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[2];
                         break;
                         
                     case "Televisor":
@@ -326,6 +349,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Televisor";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[3];
                         break;
                         
                     case "Computador":
@@ -347,6 +371,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Computador";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[4];
                         break;
                 }
                 break;
@@ -366,6 +391,7 @@ public class Automatas {
                         camino.add(8);
                         camino.add(3);
                         this.posicionActual = "Inicio";
+                        this.resetPeso();
                         break;
                         
                     case "Lavadora":
@@ -388,6 +414,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(1);
                         this.posicionActual = "Lavadora";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[0];
                         break;
                         
                     case "Nevera":
@@ -412,6 +439,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Nevera";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[1];
                         break;
                         
                     case "Televisor":
@@ -436,6 +464,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Televisor";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[3];
                         break;
                         
                     case "Computador":
@@ -465,6 +494,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Computador";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[4];
                         break;
                 }
                 break;
@@ -484,6 +514,7 @@ public class Automatas {
                         camino.add(2);
                         camino.add(3);
                         this.posicionActual = "Inicio";
+                        this.resetPeso();
                         break;
                         
                     case "Lavadora":
@@ -498,6 +529,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(1);
                         this.posicionActual = "Lavadora";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[0];
                         break;
                         
                     case "Nevera":
@@ -514,6 +546,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Nevera";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[1];
                         break;
                         
                     case "Microondas":
@@ -538,6 +571,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Microondas";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[2];
                         break;
                         
                     case "Computador":
@@ -549,6 +583,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Computador";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[4];
                         break;
                 }
                 break;
@@ -573,6 +608,7 @@ public class Automatas {
                         camino.add(2);
                         camino.add(3);
                         this.posicionActual = "Inicio";
+                        this.resetPeso();
                         break;
                         
                     case "Lavadora":
@@ -592,6 +628,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(1);
                         this.posicionActual = "Lavadora";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[0];
                         break;
                         
                     case "Nevera":
@@ -613,6 +650,7 @@ public class Automatas {
                         camino.add(10);
                         camino.add(7);
                         this.posicionActual = "Nevera";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[1];
                         break;
                         
                     case "Microondas":
@@ -641,6 +679,8 @@ public class Automatas {
                         camino.add(10);
                         camino.add(10);
                         camino.add(7);
+                        this.posicionActual = "Microondas";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[2];
                         break;
                         
                     case "Televisor":
@@ -652,6 +692,7 @@ public class Automatas {
                         camino.add(8);
                         camino.add(3);
                         this.posicionActual = "Televisor";
+                        this.pesoCargado = this.pesoCargado + this.pesoProductos[3];
                         break;
                 }
                 break;
@@ -662,6 +703,14 @@ public class Automatas {
     
     public void resetPeso() {
         this.pesoCargado = 0;
+    }
+    
+    public int getPeso(int producto) {
+        return this.pesoProductos[producto];
+    }
+    
+    public void checkPeso() {
+        
     }
     
     public String codProducto(int cod) {
